@@ -27,6 +27,7 @@ CREATE TABLE `step` (
 	title VARCHAR(100) NOT NULL,
 	description TEXT NOT NULL,
 	image_path CHAR(25),
+	step_num INT NOT NULL,
 	course_title VARCHAR(100) NOT NULL,
 
 	FOREIGN KEY (course_title)
