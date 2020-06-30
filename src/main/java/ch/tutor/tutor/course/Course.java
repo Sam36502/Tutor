@@ -14,7 +14,7 @@ public class Course {
     private Long id;
 
     @Column
-    private String course;
+    private String title;
 
     @Column
     private String description;
