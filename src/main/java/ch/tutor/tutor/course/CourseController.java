@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,13 +21,15 @@ public class CourseController {
     }
 
     @GetMapping("/getCourse")
-    public ResponseEntity<Course> getCourse(@RequestParam(name = "id") Optional<Long> optionalId) {
-        if (optionalId.isPresent()){
-            Course course = courseService.getCourse(optionalId.get());
-            return new ResponseEntity<>(course, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<List<Course>> getCourses() {
+        List<Course>courses = courseService.getAll();
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getCourse", params = {"id"})
+    public ResponseEntity<Course> getCourse(@RequestParam(name = "id") Long id) {
+        Course course = courseService.getCourse(id);
+        return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
 }
