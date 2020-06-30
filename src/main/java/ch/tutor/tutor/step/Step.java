@@ -10,7 +10,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "step")
-public @Data class Step implements Comparable<Step>{
+public @Data
+class Step implements Comparable<Step> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

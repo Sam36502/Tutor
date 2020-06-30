@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @Service
@@ -24,7 +23,7 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courses = courseRepository.findAll();
 
         // Make sure step lists are sorted by 'step_num' and not ID
-        for (Course c: courses) {
+        for (Course c : courses) {
             Collections.sort(c.getSteps());
         }
 
