@@ -19,7 +19,7 @@ GRANT ALL PRIVILEGES ON `tutor_db`.* TO 'tutor_user'@'localhost';
 # Create Tables
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
-	id INT NOT NULL UNIQUE,
+	id INT NOT NULL UNIQUE AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	description TEXT,
 	author VARCHAR(50)
