@@ -1,0 +1,10 @@
+language: java
+
+services:
+  - docker
+
+os: linux
+jdk: openjdk11
+
+script:
+  - ./gradlew build
