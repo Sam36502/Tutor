@@ -8,4 +8,6 @@ public interface CourseService {
 
     Course getCourse(Long id);
 
+    void deleteCourse(Long id);
+
 }
