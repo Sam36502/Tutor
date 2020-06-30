@@ -28,4 +28,9 @@ public class CourseServiceImpl implements CourseService {
         Optional<Course> optionalCourse = courseRepository.findById(id);
         return optionalCourse.orElse(null);
     }
+
+    @Override
+    public void deleteCourse(Long id) {
+        courseRepository.deleteById(id);
+    }
 }
