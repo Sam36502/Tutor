@@ -8,3 +8,6 @@ jdk: openjdk11
 
 script:
   - ./gradlew build
+  - docker build -t bismarck6502/tbz-tutor-backend .
+  - echo "$DOCKER_PASSWORD" | docker login -u bismarck6502 --password-stdin
+  - docker push bismarck6502/tbz-tutor-backend
