@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "step")
-public @Data class Step {
+public @Data class Step implements Comparable<Step>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +34,12 @@ public @Data class Step {
     @Setter(AccessLevel.NONE)
     private Course course;
 
+    @Override
+    public int compareTo(Step o) {
+        if (o.getStep_num() != null && this.getStep_num() != null) {
+            return this.getStep_num().compareTo(o.getStep_num());
+        } else {
+            return 0;
+        }
+    }
 }

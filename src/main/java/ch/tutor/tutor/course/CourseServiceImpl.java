@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +21,25 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getAll() {
-        return courseRepository.findAll();
+        List<Course> courses = courseRepository.findAll();
+
+        // Make sure step lists are sorted by 'step_num' and not ID
+        for (Course c: courses) {
+            Collections.sort(c.getSteps());
+        }
+
+        return courses;
     }
 
     @Override
     public Course getCourse(Long id) {
-        Optional<Course> optionalCourse = courseRepository.findById(id);
-        return optionalCourse.orElse(null);
+        Course course = courseRepository.findById(id).orElse(null);
+
+        // Make sure steps list is sorted by 'step_num' and not ID
+        if (course != null)
+            Collections.sort(course.getSteps());
+
+        return course;
     }
 
     @Override
