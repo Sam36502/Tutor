@@ -1,8 +1,10 @@
 package ch.tutor.tutor.course;
 
+import ch.tutor.tutor.step.Step;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -11,7 +13,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_course;
 
     @Column
     private String title;
@@ -21,5 +23,8 @@ public class Course {
 
     @Column
     private String author;
+
+    @OneToMany(mappedBy = "course")
+    private List<Step> steps;
 
 }

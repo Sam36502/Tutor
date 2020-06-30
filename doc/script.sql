@@ -19,10 +19,12 @@ GRANT ALL PRIVILEGES ON `tutor_db`.* TO 'tutor_user'@'localhost';
 # Create Tables
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
-	id INT NOT NULL UNIQUE AUTO_INCREMENT,
+	id_course INT NOT NULL UNIQUE AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	description TEXT,
-	author VARCHAR(50)
+	author VARCHAR(50),
+	
+	PRIMARY KEY (id_course)
 );
 
 DROP TABLE IF EXISTS `step`;
@@ -33,9 +35,29 @@ CREATE TABLE `step` (
 	image_path CHAR(25),
 	step_num INT NOT NULL,
 	course_id INT NOT NULL,
+	
+	PRIMARY KEY (id_step),
 
 	FOREIGN KEY (course_id)
-	REFERENCES `course`(id)
+	REFERENCES `course`(id_course)
 	ON UPDATE CASCADE
-	ON DELETE CASCADE
+	ON DELETE CASCADE,
+	
+	UNIQUE KEY course_step (course_id, step_num)
 );
+
+# Test Data
+# Remove/Comment out before release
+DELETE FROM `course` WHERE 1;
+INSERT INTO `course`(title, description, author)
+VALUES ('Test Course', 'This is a course to test the database', 'Samuel Pearce');
+INSERT INTO `course`(title, description, author)
+VALUES ('Another Course', 'This course only to test having multiple courses.', 'Amin Haidar');
+
+DELETE FROM `step` WHERE 1;
+INSERT INTO `step`(title, description, step_num, course_id)
+VALUES ('First Step', 'This is the first step. It should be shown first.', 1, 1);
+INSERT INTO `step`(title, description, step_num, course_id)
+VALUES ('Second Step', 'This is the next step. It should be shown after the first.', 2, 1);
+INSERT INTO `step`(title, description, step_num, course_id)
+VALUES ('First Step', 'This is the first step. It should be shown first.', 1, 2);
