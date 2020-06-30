@@ -56,8 +56,8 @@ VALUES ('Another Course', 'This course only to test having multiple courses.', '
 
 DELETE FROM `step` WHERE 1;
 INSERT INTO `step`(title, description, step_num, course_id)
-VALUES ('First Step', 'This is the first step. It should be shown first.', 1, 1);
-INSERT INTO `step`(title, description, step_num, course_id)
 VALUES ('Second Step', 'This is the next step. It should be shown after the first.', 2, 1);
+INSERT INTO `step`(title, description, step_num, course_id)
+VALUES ('First Step', 'This is the first step. It should be shown first.', 1, 1);
 INSERT INTO `step`(title, description, step_num, course_id)
 VALUES ('First Step', 'This is the first step. It should be shown first.', 1, 2);
