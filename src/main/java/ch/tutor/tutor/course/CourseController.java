@@ -31,6 +31,12 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/createCourse", params = {"course"})
+    public ResponseEntity<HttpStatus> createCourse(@RequestParam(name = "course") Course course) {
+        courseService.createCourse(course);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping(value = "/deleteCourse", params = {"id"})
     public ResponseEntity<HttpStatus> deleteCourse(@RequestParam(name = "id") Long id) {
         courseService.deleteCourse(id);
