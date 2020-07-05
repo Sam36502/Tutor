@@ -1,5 +1,9 @@
 package ch.tutor.tutor.course;
 
+import ch.tutor.tutor.step.Step;
+import ch.tutor.tutor.step.StepRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,9 @@ import java.util.Optional;
 public class CourseController {
 
     private final CourseService courseService;
+
+    @Autowired
+    private StepRepository stepRepository;
 
     @Autowired
     public CourseController(CourseService courseService) {
@@ -31,9 +38,21 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/createCourse", params = {"course"})
-    public ResponseEntity<HttpStatus> createCourse(@RequestParam(name = "course") Course course) {
+    @PostMapping(value = "/createCourse", consumes = "application/json")
+    public ResponseEntity<HttpResponse> createCourse(@RequestBody String courseJSON) {
+        ObjectMapper mapper = new ObjectMapper();
+        Course course = null;
+        try {
+            course = mapper.readValue(courseJSON, Course.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         courseService.createCourse(course);
+        for (Step s: course.getSteps()) {
+            s.setCourse(course);
+            stepRepository.save(s);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

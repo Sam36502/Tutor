@@ -31,7 +31,6 @@ public @Data class Step implements Comparable<Step>{
     @ManyToOne
     @JoinColumn(name = "course_id")
     @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private Course course;
 
     @Override
